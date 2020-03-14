@@ -16,9 +16,21 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "Develop/public")));
 
 // set up response that sends results to browser in an array of objects
+app.get("/api/notes", function(err,res) {
+// try
+    try{
+        notesArray=fs.readFileSync("Develop/db/db.json", "utf8");
+        console.log("All your notes are belong to us!");
+        notesArray=JSON.parse(notesArray);
+// catch
+    } catch(err) {
+        console.log("\n error (in appt.get.catch):");
+        console.log(err);
+    }
+        res.json(notesArray);
+});
 
-    // try
-    // catch
+    
 
 // set up section that writes new notes to JSON object
 
