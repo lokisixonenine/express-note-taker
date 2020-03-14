@@ -85,6 +85,9 @@ app.get("/api/notes", function(req, res){
     return res.sendFile(path.join(__dirname, "Develop/db/db.json"));
 });
 
-
+// Forgot to add snippet to start server port
+app.listen(PORT, function(){
+    console.log("I am the server. I am listening to you on port: " + PORT);
+});
 
 
