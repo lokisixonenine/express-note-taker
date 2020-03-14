@@ -51,11 +51,27 @@ app.post("/api/notes", function(err,res){
         console.error(err);
     }
 });
- 
-// Set up note deletion function
 
-    // try
-    // catch
+// Set up note deletion function
+app.delete("/api/notes/:id", function(req,res) {
+// try
+    try {
+        notesArray = fs.readFileSync("./Develop/db/db.json", "utf8");
+        notesArray = JSON.parse(notesArray);
+        notesArray = notesArray.filter(function(note) {
+        return note.id != req.params.id;
+        });
+        notesArray = JSON.stringify(notesArray);
+        fs.writeFile("./Develop/db/db.json", notesArray, "utf8", function(err){
+            if (err) throw err;
+        });
+// catch
+    } catch (err) {
+        throw err;
+        console.log(err);
+    }
+});
+
 
 // HTML requests (GET) go here
 
