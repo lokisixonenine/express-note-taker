@@ -21,7 +21,7 @@ app.get("/api/notes", function(err,res) {
     try{
         notesArray=fs.readFileSync("Develop/db/db.json", "utf8");
         console.log("All your notes are belong to us!");
-        notesArray=JSON.parse(notesArray);
+        notesArray = JSON.parse(notesArray);
 // catch
     } catch(err) {
         console.log("\n error (in appt.get.catch):");
@@ -29,14 +29,29 @@ app.get("/api/notes", function(err,res) {
     }
         res.json(notesArray);
 });
-
     
-
 // set up section that writes new notes to JSON object
-
-    // try
-    // catch
-
+app.post("/api/notes", function(err,res){
+// try
+    try {
+        notesArray = fs.readFileSync("./Develop/db/db.json", "utf8");
+        console.log(notesArray);
+        notesArray = JSON.parse(notesArray);
+        req.body.id = notesArray.length;
+        notesArray.push(req.body);
+        notesArray = JSON.stringify(notesArray);
+        fs.writeFile("./Develop/db/db.json", notesArray, "utf8", function(err){
+            if (err) 
+            throw err;
+        });
+        res.json(JSON.parse(notesArray));
+// catch
+    } catch (err){
+        throw err;
+        console.error(err);
+    }
+});
+ 
 // Set up note deletion function
 
     // try
